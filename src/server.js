@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import uploadRouter from './routes/uploadRoute.js';
+import {errorHandler} from './middleware/errorHandler.js';
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
 });
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
