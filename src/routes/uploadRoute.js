@@ -13,14 +13,13 @@ router.post('/', upload.single('image'), async (req, res, next) => {
         }
         const uniqueName = crypto.randomBytes(16).toString('hex') + '.webp';
 
-        const filePath = await processAndSaveImage(req.file.buffer, uniqueName);
+        const s3Url = await processAndSaveImage(req.file.buffer, uniqueName);
 
         res.json({
             message: "Image uploaded successfully",
             file: {
                 name: uniqueName,
-                path: filePath,
-                url: `/uploads/${uniqueName}`,
+                url: s3Url,
             },
         });
     } catch (error) {
