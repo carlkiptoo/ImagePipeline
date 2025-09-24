@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-
+import uploadRouter from './routes/uploadRoute.js';
 
 dotenv.config();
 
@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.get('/health', (req, res) => res.json({status: "ok"}));
+
+app.use('/uploads', express.static('uploads'));
 
 app.use('/api/upload', uploadRouter);
 
@@ -19,5 +21,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
-    
+
 })
