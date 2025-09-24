@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import uploadRouter from './routes/uploadRoute.js';
+import statusRouter from './routes/statusRoute.js';
 import {errorHandler} from './middleware/errorHandler.js';
 
 dotenv.config();
@@ -14,6 +15,8 @@ app.get('/health', (req, res) => res.json({status: "ok"}));
 app.use('/uploads', express.static('uploads'));
 
 app.use('/api/upload', uploadRouter);
+
+app.use('/status', statusRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
